@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>بطاقة معايدة</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+
+        font-family: Arial, sans-serif;
+
+        background: linear-gradient(135deg, #3d0c55, #18002f);
+
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 92%;
+        max-width: 800px;
+
+        margin: auto;
+
+        text-align: center;
+
+        padding: 40px 0 60px;
+      }
+
+      .title {
+        color: rgb(247, 246, 247);
+
+        font-size: 38px;
+
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        color: #f5dfaa;
+
+        font-size: 18px;
+
+        margin-bottom: 30px;
+      }
+
+      .card-select {
+        width: 250px;
+
+        height: 50px;
+
+        padding: 10px 15px;
+
+        font-size: 18px;
+
+        border: none;
+
+        border-radius: 8px;
+
+        background: white;
+
+        cursor: pointer;
+
+        position: fixed;
+
+        top: 25px;
+
+        right: 25px;
+
+        z-index: 100;
+      }
+
+      .card {
+        background: white;
+
+        border-radius: 25px;
+
+        padding: 35px 25px;
+
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+
+        border: 3px solid #d5aa46;
+      }
+
+      .card h2 {
+        color: #43106d;
+
+        font-size: 28px;
+
+        margin-bottom: 15px;
+      }
+
+      .card p {
+        color: #555;
+
+        font-size: 17px;
+
+        line-height: 1.8;
+
+        margin-bottom: 25px;
+      }
+
+      .input-box {
+        display: flex;
+
+        gap: 10px;
+      }
+
+      input {
+        flex: 1;
+
+        padding: 15px;
+
+        border: 2px solid #f9f7f7;
+
+        border-radius: 12px;
+
+        font-size: 17px;
+
+        outline: none;
+
+        text-align: right;
+      }
+
+      input:focus {
+        border-color: #6c20a5;
+      }
+
+      button {
+        border: none;
+
+        padding: 14px 22px;
+
+        border-radius: 12px;
+
+        background: #43106d;
+
+        color: white;
+
+        font-size: 16px;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #6c20a5;
+
+        transform: translateY(-2px);
+      }
+
+      .greeting {
+        display: none;
+        margin-top: 35px;
+        width: calc(100% + 50px);
+       margin-right: -25px;
+       margin-left: -25px;
+      
+        text-align: center;
+      }
+
+      #cardCanvas {
+        width: 100%;
+
+        max-width: 700px;
+
+        height: auto;
+
+        display: block;
+
+        margin: auto;
+
+        border-radius: 15px;
+
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+      }
+
+      .download {
+        display: none;
+
+        width: 100%;
+
+        margin-top: 20px;
+
+        background: #c79b32;
+      }
+
+      .download:hover {
+        background: #a87e1d;
+      }
+
+      .footer {
+        color: rgba(255, 255, 255, 0.65);
+
+        font-size: 13px;
+
+        margin-top: 25px;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          width: 94%;
+
+          padding-top: 100px;
+        }
+
+        .title {
+          font-size: 30px;
+        }
+
+        .subtitle {
+          font-size: 16px;
+        }
+
+        .input-box {
+          flex-direction: column;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        .card {
+          padding: 25px 15px;
+        }
+
+        .card-select {
+          top: 15px;
+
+          right: 50%;
+
+          transform: translateX(50%);
+
+          width: 220px;
+        }
+
+        #cardCanvas {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <select class="card-select" id="cardSelect">
+      <option value="1.jpg">بطاقة معايدة 1</option>
+
+      <option value="2.jpg">بطاقة معايدة 2</option>
+
+      <option value="3.jpg">بطاقة معايدة 3</option>
+    </select>
+
+    <div class="container">
+      <h1 class="title">بطاقة معايدة</h1>
+
+      <p class="subtitle">اكتب اسمك للحصول على بطاقة المعايدة</p>
+
+      <div class="card">
+        <h2>بطاقة معايده</h2>
+
+        <p>اكتب اسمك بالأسفل ثم اضغط على تأكيد الاسم</p>
+
+        <div class="input-box">
+          <input type="text" id="nameInput" placeholder="اكتب اسمك هنا" />
+
+          <button type="button" onclick="createCard()">تأكيد الاسم</button>
+        </div>
+
+        <div class="greeting" id="greetingCard">
+          <canvas id="cardCanvas"></canvas>
+        </div>
+
+        <button
+          type="button"
+          class="download"
+          id="downloadButton"
+          onclick="downloadCard()"
+        >
+          تحميل البطاقة
+        </button>
+      </div>
+
+      <div class="footer">progammed by . youssef sallam</div>
+    </div>
+
+    <script>
+      let selectedImage = "1.jpg";
+
+      document
+        .getElementById("cardSelect")
+        .addEventListener("change", function () {
+          selectedImage = this.value;
+        });
+
+      function createCard() {
+        const input = document.getElementById("nameInput");
+
+        const name = input.value.trim();
+
+        const greeting = document.getElementById("greetingCard");
+
+        const download = document.getElementById("downloadButton");
+
+        if (name === "") {
+          alert("من فضلك اكتب اسمك أولاً");
+
+          input.focus();
+
+          return;
+        }
+
+        const image = new Image();
+
+        image.onload = function () {
+          const canvas = document.getElementById("cardCanvas");
+
+          const ctx = canvas.getContext("2d");
+
+          canvas.width = image.naturalWidth;
+
+          canvas.height = image.naturalHeight;
+
+          ctx.drawImage(image, 0, 0);
+
+          const boxX = canvas.width * 0.12;
+
+          const boxY = canvas.height * 0.7;
+
+          const boxWidth = canvas.width * 0.76;
+
+          const boxHeight = canvas.height * 0.13;
+
+          let fontSize = canvas.width * 0.05;
+
+          while (fontSize > 20) {
+            ctx.font = "bold " + fontSize + "px Arial";
+
+            if (ctx.measureText(name).width <= boxWidth * 0.9) {
+              break;
+            }
+
+            fontSize -= 2;
+          }
+          ctx.fillStyle = "#43106d";
+
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          const textX = boxX + boxWidth / 2;
+          const textY = boxY + boxHeight / 2 + 120;
+
+          ctx.fillText(name, textX, textY);
+
+          greeting.style.display = "block";
+
+          download.style.display = "block";
+
+          greeting.scrollIntoView({
+            behavior: "smooth",
+
+            block: "center",
+          });
+        };
+
+        image.onerror = function () {
+          alert("الصورة غير موجودة: " + selectedImage);
+        };
+
+        image.src = selectedImage;
+      }
+
+      function downloadCard() {
+        const canvas = document.getElementById("cardCanvas");
+
+        if (!canvas || canvas.width === 0) {
+          alert("من فضلك أنشئ البطاقة أولاً");
+
+          return;
+        }
+
+        const imageData = canvas.toDataURL("image/png");
+
+        const link = document.createElement("a");
+
+        link.href = imageData;
+
+        link.download = "بطاقة-المعايدة.jpg";
+
+        link.style.display = "none";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+      }
+    </script>
+  </body>
+</html>
