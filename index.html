@@ -185,6 +185,13 @@
           max-width: 100%;
         }
       }
+      #browserMessage {
+  display: none;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 15px;
+}
     </style>
   </head>
 
@@ -206,10 +213,10 @@
 
       <div class="card">
 
-        <h2>بطاقة معايده</h2>
+        <h2></h2>
 
         <p>
-          اكتب اسمك بالأسفل ثم اضغط على تأكيد الاسم
+          
         </p>
 
         <div class="input-box">
@@ -229,10 +236,10 @@
 
         </div>
 
-        <div
-          class="greeting"
-          id="greetingCard"
-        >
+        
+        <div  class="greeting" id="greetingCard">
+         
+        <p id="browser-message">هذا المتصفح يعمل بشكل افضل في جوجل كروم</p>
           <canvas id="cardCanvas"></canvas>
         </div>
 
@@ -248,8 +255,9 @@
       </div>
 
       <div class="footer">
-        programmed by . youssef sallam
+        Programmed by . youssef sallam
       </div>
+
 
     </div>
 
